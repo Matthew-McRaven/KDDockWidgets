@@ -65,7 +65,6 @@ set(KDDW_BACKEND_SRCS
     core/views/TabBarViewInterface.cpp
     core/views/TitleBarViewInterface.cpp
     core/views/SideBarViewInterface.cpp
-    kddockwidgets_resources.qrc
 )
 
 # Sources shared by Qt frontends (QtWidgets and QtQuick)
@@ -78,6 +77,9 @@ set(KDDW_QTCOMMON_SRCS
     qtcommon/CustomFrameHelper.cpp
     qtcommon/DragControllerWayland_p.cpp
 )
+qt_add_resources(KDDW_QTCOMMON_SRCS
+    kddockwidgets_resources.qrc
+    OPTIONS -compress 0)
 
 set(KDDW_FRONTEND_QTWIDGETS_SRCS
     qtwidgets/Action.cpp
@@ -146,8 +148,11 @@ set(KDDW_FRONTEND_QTQUICK_SRCS
     qtquick/views/View.cpp
     qtquick/views/ViewWrapper.cpp
     qtquick/views/ClassicIndicatorsWindow.cpp
-    qtquick/kddockwidgets_qtquick.qrc
 )
+
+qt_add_resources(KDDW_FRONTEND_QTQUICK_SRCS
+    qtquick/kddockwidgets_qtquick.qrc
+    OPTIONS -compress 0)
 
 set(KDDW_FRONTEND_QTQUICK_VIEW_HEADERS
     qtquick/views/DropArea.h
