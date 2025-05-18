@@ -146,11 +146,8 @@ set(KDDW_FRONTEND_QTQUICK_SRCS
     qtquick/views/View.cpp
     qtquick/views/ViewWrapper.cpp
     qtquick/views/ClassicIndicatorsWindow.cpp
+    qtquick/kddockwidgets_qtquick.qrc
 )
-
-if(NOT KDDockWidgets_QML_MODULE)
-    set(KDDW_FRONTEND_QTQUICK_SRCS ${KDDW_FRONTEND_QTQUICK_SRCS} qtquick/kddockwidgets_qtquick.qrc)
-endif()
 
 set(KDDW_FRONTEND_QTQUICK_VIEW_HEADERS
     qtquick/views/DropArea.h
@@ -664,14 +661,6 @@ if(KDDW_FRONTEND_QTWIDGETS OR KDDW_FRONTEND_QTQUICK)
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/kddockwidgets_version.h"
             DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets
     )
-
-    install(
-        EXPORT kddockwidgetsTargets
-        FILE KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Targets.cmake
-        NAMESPACE KDAB::
-        DESTINATION ${INSTALL_LIBRARY_DIR}/cmake/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}
-    )
-
 endif()
 
 configure_file(KDDockWidgetsConfig.cmake.in KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake @ONLY)
