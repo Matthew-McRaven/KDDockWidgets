@@ -78,8 +78,7 @@ set(KDDW_QTCOMMON_SRCS
     qtcommon/DragControllerWayland_p.cpp
 )
 qt_add_resources(KDDW_QTCOMMON_SRCS
-    kddockwidgets_resources.qrc
-    OPTIONS -compress 0)
+    kddockwidgets_resources.qrc)
 
 set(KDDW_FRONTEND_QTWIDGETS_SRCS
     qtwidgets/Action.cpp
@@ -151,8 +150,7 @@ set(KDDW_FRONTEND_QTQUICK_SRCS
 )
 
 qt_add_resources(KDDW_FRONTEND_QTQUICK_SRCS
-    qtquick/kddockwidgets_qtquick.qrc
-    OPTIONS -compress 0)
+    qtquick/kddockwidgets_qtquick.qrc)
 
 set(KDDW_FRONTEND_QTQUICK_VIEW_HEADERS
     qtquick/views/DropArea.h
