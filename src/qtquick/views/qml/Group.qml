@@ -9,7 +9,7 @@
   Contact KDAB at <info@kdab.com> for commercial licensing options.
 */
 
-import QtQuick 2.9
+import QtQuick
 import com.kdab.dockwidgets 2.0
 
 Rectangle {
@@ -34,7 +34,7 @@ Rectangle {
     radius: 2
     color: "transparent"
     border {
-        color: "#b8b8b8"
+        color: palette.midlight
         width: 1
     }
 

@@ -59,6 +59,7 @@ Rectangle {
     visible: titleBarCpp && titleBarCpp.visible
     height: visible ? heightWhenVisible : 0
     implicitHeight: heightWhenVisible
+    color: palette.base
 
     MouseArea {
         id: titleBarDragMouseArea

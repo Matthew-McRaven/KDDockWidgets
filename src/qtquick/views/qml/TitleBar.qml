@@ -9,7 +9,7 @@
   Contact KDAB at <info@kdab.com> for commercial licensing options.
 */
 
-import QtQuick 2.9
+import QtQuick
 import QtQuick.Window 2.15
 
 /**
@@ -24,8 +24,8 @@ TitleBarBase {
     // These two are just for unit-tests
     readonly property QtObject floatButton: floatButton
     readonly property QtObject closeButton: closeButton
+    property bool hideButtons: false
 
-    color: "#eff0f1"
     heightWhenVisible: 30
 
     function dpiSuffix(): string {
@@ -48,6 +48,7 @@ TitleBarBase {
     Text {
         id: title
         text: root.title
+        color: palette.text
         anchors {
             left: parent ? parent.left : undefined
             leftMargin: 5
@@ -56,6 +57,7 @@ TitleBarBase {
     }
 
     Row {
+        visible: !root.hideButtons
         anchors {
             verticalCenter: parent ? parent.verticalCenter : undefined
             right: parent ? parent.right : undefined
