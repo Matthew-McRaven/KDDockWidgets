@@ -9,11 +9,12 @@
   Contact KDAB at <info@kdab.com> for commercial licensing options.
 */
 
-import QtQuick 2.9
+import QtQuick
 
 Rectangle {
     id: root
 
     readonly property QtObject dockWidgetCpp: parent
     anchors.fill: parent
+    color: palette.base
 }
