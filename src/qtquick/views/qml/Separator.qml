@@ -9,13 +9,13 @@
   Contact KDAB at <info@kdab.com> for commercial licensing options.
 */
 
-import QtQuick 2.6
+import QtQuick
 import com.kdab.dockwidgets 2.0
 
 Rectangle {
     id: root
     anchors.fill: parent
-    color: "#eff0f1"
+    color: palette.button
 
     readonly property SeparatorView kddwSeparator: parent // qmllint disable incompatible-type
 

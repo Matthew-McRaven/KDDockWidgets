@@ -9,15 +9,15 @@
   Contact KDAB at <info@kdab.com> for commercial licensing options.
 */
 
-import QtQuick 2.9
+import QtQuick
 
 Rectangle {
     id: root
-    color: "#555ca1c5"
+    color: Qt.rgba(palette.highlight.r, palette.highlight.g, palette.highlight.b, 0.33)
 
     radius: 1
     border {
-        color: "#5ca1c5"
+        color: palette.highlight
         width: 1
     }
 
