@@ -467,13 +467,15 @@ if(WIN32)
 endif()
 
 if(KDDW_FRONTEND_QT)
-    install(
-        TARGETS kddockwidgets
-        EXPORT kddockwidgetsTargets
-        RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR}
-        LIBRARY DESTINATION ${INSTALL_LIBRARY_DIR}
-        ARCHIVE DESTINATION ${INSTALL_ARCHIVE_DIR}
-    )
+    if(KDAB_INSTALL)
+        install(
+            TARGETS kddockwidgets
+            EXPORT kddockwidgetsTargets
+            RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR}
+            LIBRARY DESTINATION ${INSTALL_LIBRARY_DIR}
+            ARCHIVE DESTINATION ${INSTALL_ARCHIVE_DIR}
+        )
+    endif()
     if(MSVC AND NOT KDDockWidgets_STATIC)
         install(
             FILES "$<TARGET_PDB_FILE_DIR:kddockwidgets>/$<TARGET_PDB_FILE_NAME:kddockwidgets>"
@@ -482,12 +484,14 @@ if(KDDW_FRONTEND_QT)
         )
     endif()
 
-    # install(FILES ${camelcase_HEADERS} DESTINATION
-    # ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
-    install(FILES ${KDDW_PUBLIC_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
-    install(FILES ${KDDW_CORE_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/core)
-    install(FILES ${KDDW_VIEWINTERFACE_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/core/views)
-    install(FILES ${KDDW_INDICATOR_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/core/indicators)
+    if(KDAB_INSTALL)
+        # install(FILES ${camelcase_HEADERS} DESTINATION
+        # ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        install(FILES ${KDDW_PUBLIC_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        install(FILES ${KDDW_CORE_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/core)
+        install(FILES ${KDDW_VIEWINTERFACE_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/core/views)
+        install(FILES ${KDDW_INDICATOR_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/core/indicators)
+    endif()
 endif()
 
 if(KDDW_FRONTEND_QTWIDGETS)
@@ -513,14 +517,15 @@ if(KDDW_FRONTEND_QTWIDGETS)
         qtwidgets/views/MainWindow.h
         qtwidgets/views/TitleBar.h
     )
+    if(KDAB_INSTALL)
+        install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
 
-    install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
-    install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
-
-    install(FILES ${KDDW_QTWIDGET_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
-    install(FILES ${KDDW_FRONTEND_QTWIDGETS_VIEW_HEADERS}
-            DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/views/
-    )
+        install(FILES ${KDDW_QTWIDGET_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
+        install(FILES ${KDDW_FRONTEND_QTWIDGETS_VIEW_HEADERS}
+                DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/views/
+        )
+    endif()
 
     if(KDockWidgets_PRETTY_QTWIDGETS_HEADERS)
         set(KDDW_QTWIDGET_PRETTY_HEADERS
@@ -528,8 +533,9 @@ if(KDDW_FRONTEND_QTWIDGETS)
             fwd_headers/qtwidgets_pretty/kddockwidgets/DockWidget.h
             fwd_headers/qtwidgets_pretty/kddockwidgets/ViewFactory.h
         )
-
-        install(FILES ${KDDW_QTWIDGET_PRETTY_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        if(KDAB_INSTALL)
+            install(FILES ${KDDW_QTWIDGET_PRETTY_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        endif()
     endif()
 endif()
 
@@ -642,17 +648,20 @@ if(KDDW_FRONTEND_QTQUICK)
             # NO_PLUGIN # For now. Feel free to enable plugin but add CI test coverage
         )
     endif()
-
-    install(FILES ${KDDW_QTQUICK_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
-    install(FILES ${KDDW_QTQUICK_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
-    install(FILES ${KDDW_FRONTEND_QTQUICK_VIEW_HEADERS}
+    if(KDAB_INSTALL)
+        install(FILES ${KDDW_QTQUICK_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
+        install(FILES ${KDDW_QTQUICK_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
+        install(FILES ${KDDW_FRONTEND_QTQUICK_VIEW_HEADERS}
             DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick/views
-    )
+       )
+    endif()
 endif()
 
 if(KDDW_FRONTEND_QTWIDGETS OR KDDW_FRONTEND_QTQUICK)
     set(KDDW_QTCOMMON_HEADERS qtcommon/Platform.h qtcommon/View.h)
-    install(FILES ${KDDW_QTCOMMON_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtcommon)
+    if(KDAB_INSTALL)
+        install(FILES ${KDDW_QTCOMMON_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtcommon)
+    endif()
 
     # Generate library version files
     include(ECMSetupVersion)
@@ -669,16 +678,20 @@ if(KDDW_FRONTEND_QTWIDGETS OR KDDW_FRONTEND_QTQUICK)
         COMPATIBILITY
         AnyNewerVersion
     )
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/kddockwidgets_version.h"
+    if(KDAB_INSTALL)
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/kddockwidgets_version.h"
             DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets
-    )
+        )
+    endif()
 endif()
 
 configure_file(KDDockWidgetsConfig.cmake.in KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake"
+if(KDAB_INSTALL)
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake"
               "${CMAKE_CURRENT_BINARY_DIR}/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}ConfigVersion.cmake"
         DESTINATION ${INSTALL_LIBRARY_DIR}/cmake/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}
-)
+    )
+endif()
 
 if(KDDockWidgets_DEVELOPER_MODE AND KDDW_FRONTEND_QTWIDGETS)
     # Under developer mode since kddw might be a sub-folder of a project setting a
