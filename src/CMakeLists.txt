@@ -487,14 +487,15 @@ if(KDDW_FRONTEND_QTWIDGETS)
         qtwidgets/views/MainWindow.h
         qtwidgets/views/TitleBar.h
     )
+    if(KDAB_INSTALL)
+        install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
 
-    install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
-    install(FILES ${KDDW_QTWIDGET_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
-
-    install(FILES ${KDDW_QTWIDGET_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
-    install(FILES ${KDDW_FRONTEND_QTWIDGETS_VIEW_HEADERS}
-            DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/views/
-    )
+        install(FILES ${KDDW_QTWIDGET_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/)
+        install(FILES ${KDDW_FRONTEND_QTWIDGETS_VIEW_HEADERS}
+                DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtwidgets/views/
+        )
+    endif()
 
     if(KDockWidgets_PRETTY_QTWIDGETS_HEADERS)
         set(KDDW_QTWIDGET_PRETTY_HEADERS
@@ -502,8 +503,9 @@ if(KDDW_FRONTEND_QTWIDGETS)
             fwd_headers/qtwidgets_pretty/kddockwidgets/DockWidget.h
             fwd_headers/qtwidgets_pretty/kddockwidgets/ViewFactory.h
         )
-
-        install(FILES ${KDDW_QTWIDGET_PRETTY_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        if(KDAB_INSTALL)
+            install(FILES ${KDDW_QTWIDGET_PRETTY_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets)
+        endif()
     endif()
 endif()
 
@@ -622,15 +624,16 @@ if(KDDW_FRONTEND_QTQUICK)
             target_link_libraries(kddockwidgets PRIVATE kddockwidgetsplugin)
         endif()
     endif()
-
-    install(FILES ${KDDW_QTQUICK_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
-    install(FILES ${KDDW_QTQUICK_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
-    install(FILES ${KDDW_FRONTEND_QTQUICK_VIEW_HEADERS}
+    if(KDAB_INSTALL)
+        install(FILES ${KDDW_QTQUICK_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
+        install(FILES ${KDDW_QTQUICK_VIEW_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick)
+        install(FILES ${KDDW_FRONTEND_QTQUICK_VIEW_HEADERS}
             DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtquick/views
-    )
+       )
+    endif()
 endif()
 
-if(KDDW_FRONTEND_QT)
+if(KDDW_FRONTEND_QT AND KDAB_INSTALL)
     install(
         TARGETS kddockwidgets
         EXPORT kddockwidgetsTargets
@@ -667,7 +670,9 @@ endif()
 
 if(KDDW_FRONTEND_QTWIDGETS OR KDDW_FRONTEND_QTQUICK)
     set(KDDW_QTCOMMON_HEADERS qtcommon/Platform.h qtcommon/View.h)
-    install(FILES ${KDDW_QTCOMMON_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtcommon)
+    if(KDAB_INSTALL)
+        install(FILES ${KDDW_QTCOMMON_HEADERS} DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets/qtcommon)
+    endif()
 
     # Generate library version files
     include(ECMSetupVersion)
@@ -684,16 +689,20 @@ if(KDDW_FRONTEND_QTWIDGETS OR KDDW_FRONTEND_QTQUICK)
         COMPATIBILITY
         AnyNewerVersion
     )
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/kddockwidgets_version.h"
+    if(KDAB_INSTALL)
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/kddockwidgets_version.h"
             DESTINATION ${DOCKS_INCLUDES_INSTALL_PATH}/kddockwidgets
-    )
+        )
+    endif()
 endif()
 
 configure_file(KDDockWidgetsConfig.cmake.in KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake"
+if(KDAB_INSTALL)
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}Config.cmake"
               "${CMAKE_CURRENT_BINARY_DIR}/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}ConfigVersion.cmake"
         DESTINATION ${INSTALL_LIBRARY_DIR}/cmake/KDDockWidgets${KDDockWidgets_LIBRARY_QTID}
-)
+    )
+endif()
 
 if(KDDockWidgets_DEVELOPER_MODE AND KDDW_FRONTEND_QTWIDGETS)
     # Under developer mode since kddw might be a sub-folder of a project setting a
