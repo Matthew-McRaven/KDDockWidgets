@@ -171,6 +171,13 @@ void DockWidgetInstantiator::setAsCurrentTab()
         d->m_dockWidget->setAsCurrentTab();
 }
 
+bool DockWidgetInstantiator::isCurrentTab() const
+{
+    if (d->m_dockWidget)
+        return d->m_dockWidget->isCurrentTab();
+    return false;
+}
+
 void DockWidgetInstantiator::forceClose()
 {
     if (d->m_dockWidget)

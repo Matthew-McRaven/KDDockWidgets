@@ -93,6 +93,7 @@ public:
                                                      KDDockWidgets::InitialVisibilityOption = {});
 
     Q_INVOKABLE void setAsCurrentTab();
+    Q_INVOKABLE bool isCurrentTab() const;
     Q_INVOKABLE void forceClose();
     Q_INVOKABLE bool close();
     Q_INVOKABLE void open();
