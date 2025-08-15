@@ -16,6 +16,7 @@ using namespace KDDockWidgets;
 
 LayoutSaverInstantiator::LayoutSaverInstantiator(QObject *parent)
     : QObject(parent)
+    , LayoutSaver(RestoreOption_RelativeToMainWindow)
 {
 }
 
