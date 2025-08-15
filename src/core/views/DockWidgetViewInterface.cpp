@@ -50,6 +50,11 @@ bool DockWidgetViewInterface::isFloating() const
     return m_dockWidget->isFloating();
 }
 
+bool DockWidgetViewInterface::isCurrentTab() const
+{
+    return m_dockWidget->isCurrentTab();
+}
+
 QString DockWidgetViewInterface::uniqueName() const
 {
     return m_dockWidget->uniqueName();

@@ -137,6 +137,7 @@ public:
 #ifdef Q_MOC_RUN
     // DockWidgetViewInterface is not a QObject, so trick moc
     Q_INVOKABLE void setAsCurrentTab();
+    Q_INVOKABLE bool isCurrentTab() const;
     Q_INVOKABLE void forceClose();
     Q_INVOKABLE void open();
     Q_INVOKABLE void show();
