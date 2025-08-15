@@ -43,6 +43,7 @@ class DockWidgetInstantiator : public QQuickItem
     Q_PROPERTY(bool isFocused READ isFocused NOTIFY isFocusedChanged)
     Q_PROPERTY(bool isFloating READ isFloating WRITE setFloating NOTIFY isFloatingChanged)
     Q_PROPERTY(bool isOpen READ isOpen NOTIFY isOpenChanged)
+    Q_PROPERTY(bool needsAttention READ needsAttention WRITE setNeedsAttention NOTIFY needsAttentionChanged)
     Q_PROPERTY(QVector<QString> affinities READ affinities WRITE setAffinities NOTIFY affinitiesChanged)
     Q_PROPERTY(KDDockWidgets::DockWidgetOptions options READ options WRITE setOptions NOTIFY optionsChanged)
     Q_PROPERTY(KDDockWidgets::CloseReason lastCloseReason READ lastCloseReason NOTIFY lastCloseReasonChanged)
@@ -111,6 +112,8 @@ public:
 
     /// Deletes the dock widget via deleteLater()
     Q_INVOKABLE void deleteDockWidgetLater();
+    bool needsAttention() const;
+    void setNeedsAttention(bool needsAttention);
 
 protected:
     void classBegin() override;
@@ -137,6 +140,7 @@ Q_SIGNALS:
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     void userDataChanged();
 #endif
+    void needsAttentionChanged();
 
 private:
     class Private;
