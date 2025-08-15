@@ -91,7 +91,7 @@ public:
 
     Q_INVOKABLE void addDockWidgetAsTab(QQuickItem *other,
                                         KDDockWidgets::InitialVisibilityOption = {});
-
+    Q_INVOKABLE QObject *dockWidgetObject(int index) const;
 Q_SIGNALS:
     void tabBarQmlItemChanged();
     void tabBarAutoHideChanged();
