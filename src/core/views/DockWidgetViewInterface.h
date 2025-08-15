@@ -35,6 +35,7 @@ public:
 
     bool isFocused() const;
     bool isFloating() const;
+    bool isCurrentTab() const;
     void setFloating(bool);
     QString uniqueName() const;
     QString title() const;
