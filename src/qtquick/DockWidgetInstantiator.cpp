@@ -221,6 +221,24 @@ void DockWidgetInstantiator::deleteDockWidget()
     delete this;
 }
 
+bool DockWidgetInstantiator::needsAttention() const
+{
+    auto dw = dockWidget();
+    if (dw)
+        return dw->needsAttention();
+    return false;
+}
+
+void DockWidgetInstantiator::setNeedsAttention(bool needsAttention)
+{
+    auto dw = dockWidget();
+    if (dw) {
+        dw->setNeedsAttention(needsAttention);
+    } else {
+        qWarning() << Q_FUNC_INFO << "Dock widget not yet created, cannot set needsAttention.";
+    }
+}
+
 void DockWidgetInstantiator::classBegin()
 {
     // Nothing interesting to do here.
@@ -323,5 +341,8 @@ void DockWidgetInstantiator::componentComplete()
     d->userDataConnection = d->m_dockWidget->d->userDataChanged.connect([this] { Q_EMIT userDataChanged(); });
 #endif
 
+    auto dw = dockWidget();
+    if (dw)
+        connect(dw, &DockWidget::needsAttentionChanged, this, &DockWidgetInstantiator::needsAttentionChanged);
     Q_EMIT dockWidgetChanged();
 }

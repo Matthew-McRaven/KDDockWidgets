@@ -43,6 +43,7 @@ class DockWidgetInstantiator : public QQuickItem
     Q_PROPERTY(bool isFocused READ isFocused NOTIFY isFocusedChanged)
     Q_PROPERTY(bool isFloating READ isFloating WRITE setFloating NOTIFY isFloatingChanged)
     Q_PROPERTY(bool isOpen READ isOpen NOTIFY isOpenChanged)
+    Q_PROPERTY(bool needsAttention READ needsAttention WRITE setNeedsAttention NOTIFY needsAttentionChanged)
     Q_PROPERTY(QVector<QString> affinities READ affinities WRITE setAffinities NOTIFY affinitiesChanged)
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     Q_PROPERTY(QVariantMap userData READ userData WRITE setUserData NOTIFY userDataChanged)
@@ -102,6 +103,9 @@ public:
     /// It's more usual to just hide dock widgets though.
     Q_INVOKABLE void deleteDockWidget();
 
+    bool needsAttention() const;
+    void setNeedsAttention(bool needsAttention);
+
 protected:
     void classBegin() override;
     void componentComplete() override;
@@ -126,6 +130,7 @@ Q_SIGNALS:
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     void userDataChanged();
 #endif
+    void needsAttentionChanged();
 
 private:
     class Private;

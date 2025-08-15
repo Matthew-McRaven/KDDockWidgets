@@ -48,6 +48,7 @@ class DOCKS_EXPORT DockWidget : public QtQuick::View,
     Q_PROPERTY(bool isFocused READ isFocused NOTIFY isFocusedChanged)
     Q_PROPERTY(bool isFloating READ isFloating WRITE setFloating NOTIFY isFloatingChanged)
     Q_PROPERTY(bool isOpen READ isOpen NOTIFY isOpenChanged)
+    Q_PROPERTY(bool needsAttention READ needsAttention WRITE setNeedsAttention NOTIFY needsAttentionChanged)
     Q_PROPERTY(QString uniqueName READ uniqueName CONSTANT)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QObject *guestItem READ guestItem NOTIFY guestItemChanged)
@@ -121,6 +122,17 @@ public:
     {
         Core::DockWidgetViewInterface::raise();
     }
+    bool needsAttention() const
+    {
+        return _needsAttention;
+    }
+    void setNeedsAttention(bool needsAttention)
+    {
+        if (_needsAttention != needsAttention) {
+            _needsAttention = needsAttention;
+            Q_EMIT needsAttentionChanged();
+        }
+    }
 
 #ifdef Q_MOC_RUN
     // DockWidgetViewInterface is not a QObject, so trick moc
@@ -142,6 +154,7 @@ Q_SIGNALS:
     void titleChanged();
     void guestItemChanged();
     void optionsChanged();
+    void needsAttentionChanged();
 
 protected:
     bool event(QEvent *e) override;
@@ -149,6 +162,7 @@ protected:
 private:
     class Private;
     Private *const d;
+    bool _needsAttention = false;
 };
 
 }
