@@ -332,6 +332,19 @@ void TabBar::addDockWidgetAsTab(QQuickItem *other,
     }
 }
 
+QObject *TabBar::dockWidgetObject(int index) const
+{
+    auto *dw = dockWidgetModel()->dockWidgetAt(index); // Core::DockWidget*
+    if (!dw || !dw->view())
+        return nullptr;
+    // Convert to the Quick view and hand QML its QObject*
+    if (auto *quickView = dynamic_cast<KDDockWidgets::QtQuick::View *>(dw->view())) {
+        return quickView->thisObject(); // QObject* backing the QML item
+    }
+    return nullptr;
+}
+
+
 DockWidgetModel::DockWidgetModel(Core::TabBar *tabBar, QObject *parent)
     : QAbstractListModel(parent)
     , d(new Private(tabBar))
