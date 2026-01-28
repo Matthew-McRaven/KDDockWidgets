@@ -34,11 +34,7 @@ find_package(kdbindings QUIET)
 
 # Function to link to nlohmann
 function(kddw_add_nlohmann test)
-    if(nlohmann_json_FOUND)
-        target_link_libraries(${test} PRIVATE nlohmann_json::nlohmann_json)
-    else()
-        target_include_directories(${test} SYSTEM PRIVATE ${CMAKE_SOURCE_DIR}/src/3rdparty/nlohmann)
-    endif()
+    target_link_libraries(${test} PRIVATE nlohmann_json::nlohmann_json)
 endfunction()
 
 # Equivalent to CMake's add_test but can enable valgrind
